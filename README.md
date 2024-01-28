@@ -7,7 +7,9 @@
 
 * [Contexto](#contexto)
 
-* [Creación y conexión de la máquina virtual](#hammer-creación-y-conexión-de-la-máquina-virtual-entorno-linux)
++ [Creación y conexión de la máquina virtual](#hammer-creación-y-conexión-de-la-máquina-virtual-entorno-linux)
+
+  * [...o limpieza de la máquina virtual](#...o-limpieza-de-la-máquina-virtual)
 
 * [Clonación del Repositorio](#calling-clonación-del-repositorio-inicio-y-ejecución-de-los-servicios-docker-composeyml)
 
