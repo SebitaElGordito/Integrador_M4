@@ -94,6 +94,8 @@ Luego de descargar Virtual Box y Putty desde sus páginas oficiales, se procede 
 
 ### Limpieza de la máquina virtual (opcional)
 
+Este paso es opcional, y aplica en el caso de que la máquina virtual ya exista y se quieran borrar todos los contenedores, volúmenes e imágenes, para liberar por completo el espacio asignado al entorno virtual.
+
 #### Limpieza del disco duro
 
 Borrar todo: 
