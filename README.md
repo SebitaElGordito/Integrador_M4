@@ -9,7 +9,7 @@
 
 + [Creación y conexión de la máquina virtual](#hammer-creación-y-conexión-de-la-máquina-virtual-entorno-linux)
 
-  * [...o limpieza de la máquina virtual](#...o-limpieza-de-la-máquina-virtual)
+  * [Limpieza de la máquina virtual (opcional)](#limpieza-de-la-máquina-virtual-(opcional))
 
 * [Clonación del Repositorio](#calling-clonación-del-repositorio-inicio-y-ejecución-de-los-servicios-docker-composeyml)
 
@@ -92,7 +92,7 @@ Luego de descargar Virtual Box y Putty desde sus páginas oficiales, se procede 
 
 <br>
 
-### ...o limpieza de la máquina virtual
+### Limpieza de la máquina virtual (opcional)
 
 #### Limpieza del disco duro
 
