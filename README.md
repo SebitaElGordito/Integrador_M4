@@ -89,6 +89,79 @@ Luego de descargar Virtual Box y Putty desde sus páginas oficiales, se procede 
 *Luego de haber configurado todo, se enciende la máquina virtual. Luego de que carguen todos los archivos y dependencias, se ingresa usuario y contraseña Ubuntu, y se ingresa el comando hostname -I para obtener la dirección IP del entorno local. Con ésta dirección IP se procede a conectar Putty, que lo que nos permite es una mayor libertad y mejor interacción con lo que estemos haciendo en el mismo entorno virtual.*
 
 <br>
+
+### ...o limpieza de la máquina virtual
+
+#### Limpieza del disco duro
+
+Borrar todo: 
+
+```
+  docker system prune -a
+```
+
+#### Limpiar Carpetas
+
+Visualizar las carpetas:
+
+```
+  ls
+```
+ 
+#### Eliminar carpetas (una por una):
+
+```
+  rm -r <Nombre de carpeta> 
+```
+
+#### Limpiar Contenedores
+
+Visualizar contenedores:
+
+```
+    sudo docker ps
+```
+
+Eliminar TODOS los contenedores:
+
+```
+  sudo docker rm -f $(sudo docker ps -a -q)
+```
+
+#### Limpiar Volumen
+
+Visualizar volumen:
+
+    sudo docker volume ls
+
+Eliminar TODO los volumenes:
+
+```
+  sudo docker volume prune
+```
+
+#### Limpiar Imágenes
+
+Visualizar Imágenes:
+
+```
+  sudo docker image ls
+```
+
+Eliminar TODAS las imagenes:
+
+```
+  sudo docker image prune
+```
+
+#### Verificar si está limpio maquina virtual (MV)
+
+Visualizar espacio disponible:
+
+```
+  df -h
+```
+
 <br>
 
 ## :calling: Clonación del repositorio, inicio y ejecución de los servicios docker-compose.yml
