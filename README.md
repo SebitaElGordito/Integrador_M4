@@ -9,7 +9,7 @@
 
 + [Creación y conexión de la máquina virtual](#hammer-creación-y-conexión-de-la-máquina-virtual-entorno-linux)
 
-  * [Limpieza de la máquina virtual (opcional)](#limpieza-de-la-máquina-virtual-(opcional))
+  * [Limpieza de la máquina virtual (opcional)](#limpieza-de-la-máquina-virtual-opcional)
 
 * [Clonación del Repositorio](#calling-clonación-del-repositorio-inicio-y-ejecución-de-los-servicios-docker-composeyml)
 
