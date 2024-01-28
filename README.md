@@ -26,11 +26,21 @@
 
   * [Neo4j](#neo4j)
 
++ [Spark](#magic_wand-spark)
+
+  * [Spark y Scala](#spark-y-scala)
+
+  * [Kafka](#kafka)
+
+  * [Comparativa Datasets y Dataframe en Scala](#comparativa-datasets-y-dataframe-en-scala)
+
+* [Carga Incremental con Spark](#hourglass-carga-incremental-con-spark)
+
+* [Herramientas de Orquestación de flujo de datos](#abacus-herramientas-de-orquestación-de-flujo-de-datos)
+
 * [Desarrolladores del Proyecto](#personas-desarrolladores)
 
-* [Licencia](#licencia)
 
-* [Conclusión](#conclusión)
 
 <br>
 
@@ -43,7 +53,7 @@ Desde la gerencia de Infraestructura no están muy convencidos de utilizar esta 
 
 <br>
 
-# :hammer: Creación y conexión de la máquina virtual (entorno linux)
+## :hammer: Creación y conexión de la máquina virtual (entorno linux)
 
 
 Luego de descargar Virtual Box y Putty desde sus páginas oficiales, se procede a la creación y configuración de un nuevo entorno virtual... 
@@ -262,7 +272,7 @@ Páginas de descarga:
 Copiamos los archivos desde Mongodb al contenedor Hive-server:
 
 ```
-  cd herramientas_big_data)
+  cd herramientas_big_data
   cd Mongo (entramos al directorio Mongo ya que aqui estan los archivos .jar que nos indican copiar en la practica)
   sudo docker cp mongo-hadoop-hive-2.0.2.jar hive-server:/opt/hive/lib/mongo-hadoop-hive-2.0.2.jar 
   sudo docker cp mongo-hadoop-core-2.0.2.jar hive-server:/opt/hive/lib/mongo-hadoop-core-2.0.2.jar
@@ -297,7 +307,7 @@ Ejemplo de búsqueda del camino más corto:
 <br>
 
 <p align="center">
-<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Neo4j-1.png" alt="imagen de creacion de indice en sql" width="300" height="450">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Neo4j-1.png" alt="imagen de código Neo4j" width="300" height="450">
 </p>
 
 <br>
@@ -310,159 +320,108 @@ Ejemplo de logística:
 <br>
 
 <p align="center">
-<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Neo4j-2.png" alt="imagen de creacion de indice en sql" width="400" height="300">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Neo4j-2.png" alt="imagen de código de Neo4j-2" width="400" height="300">
 </p>
 
 <br>				
 
-## 6) Spark
+## :magic_wand: Spark
 
 Se pueden utilizar los entornos docker-compose-v4.yml y docker-compose-kafka.yml
 
-### 1) Spark y Scala:
+```
+  cd herramientas_big_data 
+  sudo docker-compose -f docker-compose-v4.yml up -d 
+```
+
+### Spark y Scala:
 
 Ubicarse en la línea de comandos del Spark master y comenzar PySpark.
-```
-  docker exec -it spark-master bash
-  /spark/bin/pyspark --master spark://spark-master:7077
-```
 
-Cargar raw-flight-data.csv desde HDFS.
 ```
-	from pyspark.sql.types import *
-
-	flightSchema = StructType([
-	StructField("DayofMonth", IntegerType(), False),
-	StructField("DayOfWeek", IntegerType(), False),
-	StructField("Carrier", StringType(), False),
-	StructField("OriginAirportID", IntegerType(), False),
-	StructField("DestAirportID", IntegerType(), False),
-	StructField("DepDelay", IntegerType(), False),
-	StructField("ArrDelay", IntegerType(), False),
-	]);
-
-	flights = spark.read.csv('hdfs://namenode:9000/data/flights/raw-flight-data.csv', schema=flightSchema, header=True)
+  sudo docker exec -it spark-master bash 
+  /spark/bin/pyspark --master spark://spark-master:7077 
+```
   
-  	flights.show()
-	  +----------+---------+-------+---------------+-------------+--------+--------+
-|DayofMonth|DayOfWeek|Carrier|OriginAirportID|DestAirportID|DepDelay|ArrDelay|
-+----------+---------+-------+---------------+-------------+--------+--------+
-|        19|        5|     DL|          11433|        13303|      -3|       1|
-|        19|        5|     DL|          14869|        12478|       0|      -8|
-|        19|        5|     DL|          14057|        14869|      -4|     -15|
-|        19|        5|     DL|          15016|        11433|      28|      24|
-|        19|        5|     DL|          11193|        12892|      -6|     -11|
-|        19|        5|     DL|          10397|        15016|      -1|     -19|
-|        19|        5|     DL|          15016|        10397|       0|      -1|
-|        19|        5|     DL|          10397|        14869|      15|      24|
-|        19|        5|     DL|          10397|        10423|      33|      34|
-|        19|        5|     DL|          11278|        10397|     323|     322|
-|        19|        5|     DL|          14107|        13487|      -7|     -13|
-|        19|        5|     DL|          11433|        11298|      22|      41|
-|        19|        5|     DL|          11298|        11433|      40|      20|
-|        19|        5|     DL|          11433|        12892|      -2|      -7|
-|        19|        5|     DL|          10397|        12451|      71|      75|
-|        19|        5|     DL|          12451|        10397|      75|      57|
-|        19|        5|     DL|          12953|        10397|      -1|      10|
-|        19|        5|     DL|          11433|        12953|      -3|     -10|
-|        19|        5|     DL|          10397|        14771|      31|      38|
-|        19|        5|     DL|          13204|        10397|       8|      25|
-+----------+---------+-------+---------------+-------------+--------+--------+
-only showing top 20 rows
-  	flights.describe()
-```
+Cargar raw-flight-data.csv desde HDFS:
+
+<p align="center">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Spark.png" alt="imagen de código de carga de raw-flight-data-csv" width="300" height="450">
+</p>
+
+<br>
 
 Ubicarse en la línea de comandos del Spark master y comenzar Scala.
+
 ```
-  docker exec -it spark-master bash
+  sudo docker exec -it spark-master bash
   spark/bin/spark-shell --master spark://spark-master:7077
 ```
 
 Cargar raw-flight-data.csv desde HDFS.
+
+<p align="center">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Spark-Scala.png" alt="imagen de código de carga de raw-flight-data-csv" width="400" height="350">
+</p>
+
+<br>
+
+### Kafka
+
 ```
-	case class flightSchema(DayofMonth:String, DayOfWeek:String, Carrier:String, OriginAirportID:String, DestAirportID:String, DepDelay:String, ArrDelay:String)
-	val flights = spark.read.format("csv").option("sep", ",").option("header", "true").load("hdfs://namenode:9000/data/flights/raw-flight-data.csv").as[flightSchema]
+	sudo docker-compose up -d
+	sudo docker exec -it kafka_container bash
+	cd /opt/kafka/bin
+	sh kafka-topics.sh --create --bootstrap-server kafka:9092 --replication-factor 1 --partitions 100 --topic demo
+	sh kafka-topics.sh --list --bootstrap-server kafka:9092
+	sh kafka-topics.sh --describe --bootstrap-server kafka:9092 --topic demo 
+	sh kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic demo --from-beginning
+	sh kafka-console-producer.sh --broker-list localhost:9092 --topic demo
+```				
 
-  	flights.show()
+Escribir desde la consola del productor "Esto es una Prueba 1" y enviar.
 
-+----------+---------+-------+---------------+-------------+--------+--------+
-|DayofMonth|DayOfWeek|Carrier|OriginAirportID|DestAirportID|DepDelay|ArrDelay|
-+----------+---------+-------+---------------+-------------+--------+--------+
-|        19|        5|     DL|          11433|        13303|      -3|       1|
-|        19|        5|     DL|          14869|        12478|       0|      -8|
-|        19|        5|     DL|          14057|        14869|      -4|     -15|
-|        19|        5|     DL|          15016|        11433|      28|      24|
-|        19|        5|     DL|          11193|        12892|      -6|     -11|
-|        19|        5|     DL|          10397|        15016|      -1|     -19|
-|        19|        5|     DL|          15016|        10397|       0|      -1|
-|        19|        5|     DL|          10397|        14869|      15|      24|
-|        19|        5|     DL|          10397|        10423|      33|      34|
-|        19|        5|     DL|          11278|        10397|     323|     322|
-|        19|        5|     DL|          14107|        13487|      -7|     -13|
-|        19|        5|     DL|          11433|        11298|      22|      41|
-|        19|        5|     DL|          11298|        11433|      40|      20|
-|        19|        5|     DL|          11433|        12892|      -2|      -7|
-|        19|        5|     DL|          10397|        12451|      71|      75|
-|        19|        5|     DL|          12451|        10397|      75|      57|
-|        19|        5|     DL|          12953|        10397|      -1|      10|
-|        19|        5|     DL|          11433|        12953|      -3|     -10|
-|        19|        5|     DL|          10397|        14771|      31|      38|
-|        19|        5|     DL|          13204|        10397|       8|      25|
-+----------+---------+-------+---------------+-------------+--------+--------+
-only showing top 20 rows
-```
-
-#### 2) Kafka		
-```		
-			sudo docker-compose up -d
-			sudo docker exec -it kafka_container bash
-			cd /opt/kafka/bin
-			sh kafka-topics.sh --create --bootstrap-server kafka:9092 --replication-factor 1 --partitions 100 --topic demo
-			sh kafka-topics.sh --list --bootstrap-server kafka:9092
-			sh kafka-topics.sh --describe --bootstrap-server kafka:9092 --topic demo 
-			sh kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic demo --from-beginning
-			sh kafka-console-producer.sh --broker-list localhost:9092 --topic demo
-				Escribir desde la consola del productor "Esto es una Prueba 1" y enviar.
-				
-			Acceder a <IP_Anfitrion>:9000	
+Acceder a <IP_Anfitrion>:9000	
 	
-			Desde Scala:
-			val df = spark.readStream
-					.format("kafka")
-					.option("kafka.bootstrap.servers", "192.168.1.100:9092")
-					.option("subscribe", "json_topic")
-					.option("startingOffsets", "earliest") // From starting
-					.load()
+Desde Scala:
 
-			df.printSchema()
+```
+	val df = spark.readStream
+			.format("kafka")
+			.option("kafka.bootstrap.servers", "192.168.1.100:9092")
+			.option("subscribe", "json_topic")
+			.option("startingOffsets", "earliest") // From starting
+			.load()
+
+	df.printSchema()
+```		
 			
-			Más ejemplos:
-				https://github.com/dbusteed/kafka-spark-streaming-example
+Más ejemplos:
+		https://github.com/dbusteed/kafka-spark-streaming-example
 						
-			Otra forma de ejecutar:
-			docker-compose exec kafka kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic TenMinPsgCnts --from-beginning
-```	
+Otra forma de ejecutar:
 
-#### 3) Comparativa Dataset y Dataframe en Scala:
+```			
+  docker-compose exec kafka kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic TenMinPsgCnts --from-beginning
+```
 
-```	
-    sudo docker cp pruebaPySpark.py spark-master:pruebaPySpark.py
-    sudo docker cp pruebaScala.scala spark-master:pruebaScala.scala
+### Comparativa Dataset y Dataframe en Scala:
+    
+```  
+  sudo docker cp pruebaPySpark.py spark-master:pruebaPySpark.py
+  sudo docker cp pruebaScala.scala spark-master:pruebaScala.scala
 
-		sudo docker exec -it spark-master bash
+	sudo docker exec -it spark-master bash
 		
-		/spark/bin/spark-submit --master spark://spark-master:7077 pruebaPySpark.py
-		/spark/bin/spark-shell --master spark://spark-master:7077 -i pruebaScala.scala
+	/spark/bin/spark-submit --master spark://spark-master:7077 pruebaPySpark.py
+	/spark/bin/spark-shell --master spark://spark-master:7077 -i pruebaScala.scala
 		
-		/spark/bin/pyspark --master spark://spark-master:7077
-		/spark/bin/spark-shell --master spark://spark-master:7077
-```	
+	/spark/bin/pyspark --master spark://spark-master:7077
+	/spark/bin/spark-shell --master spark://spark-master:7077
+```
 
-#### 4) ETL con Spark
 
-A partir de la tabla venta generada en Parqet, realizar el proceso de filtrado de valores outliers utilizando Spark.
-
-## 7) Carga incremental con Spark 
+## :hourglass: Carga incremental con Spark 
 
 Ahora resta evaluar qué sucede cuando en los sistemas fuente, se genere más dato, es decir, siguiendo los datos de esta práctica, qué pasa cuando se carguen más ventas. Se debería tomar las novedades e ingestar en el modelo existente cada día, de modo que la tabla venta, irá creciendo en cantidad de registro de manera diaria.
 Para este fin, se provee un script en spark que realiza la generación de nuevas ventas, de manera aleatoria, para poder crear una situación, donde se cuenta con novedades para la tabla de venta. El script "Paso06_GeneracionVentasNuevasPorDia.py" utiliza los datasets provistos en la carpeta "Datasets\data_nvo" para generar las novedades de forma automática. Revisar la variable "fecha_nvo" que contiene la fecha para la que se quiere generar información, como tenemos datos hasta el año 2020, la fecha de ejemplo tomada es '2021-01-01'.
@@ -472,19 +431,28 @@ Es necesiario entonces generar, un script tal que tome las novedades en csv, y l
 	sudo docker exec -it spark-master /spark/bin/spark-submit --master spark://spark-master:7077 /home/Paso06_GeneracionVentasNuevasPorDia.py
 ```	
 Supongamos que tenemos nuestro script, y ahora se quiere programar su ejecución:
+
 ```	
 	/spark/bin/spark-submit --master spark://spark-master:7077 Paso06_IncrementalVentas.py
 ```	
 
 Con crontab, para que ejecute cada día a las 5 AM:
-```
-	$ crontab -e
-	5	0	*	*	*	/home/CargaIncremental.sh
 
-	$ crontab -l
-```	
+<p align="center">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Cron.png" alt="imagen de página crontab.guru modificando horario" width="450" height="350">
+</p>
 
-## 8) Herramientas de orquestación de flujos de datos
+<br>
 
-https://github.com/sercasti/datalaketools
+## :abacus: Herramientas de orquestación de flujos de datos
+
+Para la orquestación de flujo de datos, una herramienta vista en clases y muy interesante es Airflow.
+
+<p align="center">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Airflow.png" alt="imagen de Airflow creando un DAG" width="500" height="300">
+</p>
+
+<br>
+
+Con esta herramienta, se puede automatizar las tareas de flujo de carga de trabajo, pudiendo realizar reportes automáticos en cuanlquier momento, aun fuera de horario laboral. Es muy interesante para los reportes anuales, mensuales o diarios para las empresas, y para poder visualizar los DAGs con una interfaz gráfica intuitiva.
 
