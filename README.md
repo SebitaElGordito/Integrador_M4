@@ -38,7 +38,7 @@
 
 * [Herramientas de Orquestación de flujo de datos](#abacus-herramientas-de-orquestación-de-flujo-de-datos)
 
-* [Desarrolladores del Proyecto](#personas-desarrolladores)
+* [Participantes y compañeros del pair programming](#people_hugging-participantes-y-compañeros-del-pair-programming)
 
 
 
@@ -449,10 +449,24 @@ Con crontab, para que ejecute cada día a las 5 AM:
 Para la orquestación de flujo de datos, una herramienta vista en clases y muy interesante es Airflow.
 
 <p align="center">
-<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Airflow.png" alt="imagen de Airflow creando un DAG" width="500" height="300">
+<img src="https://github.com/SebitaElGordito/Integrador_M4/blob/main/Imagenes_proyecto/Airflow.png" alt="imagen de Airflow creando un DAG" width="600" height="300">
 </p>
 
 <br>
 
 Con esta herramienta, se puede automatizar las tareas de flujo de carga de trabajo, pudiendo realizar reportes automáticos en cuanlquier momento, aun fuera de horario laboral. Es muy interesante para los reportes anuales, mensuales o diarios para las empresas, y para poder visualizar los DAGs con una interfaz gráfica intuitiva.
 
+<br>
+
+## :people_hugging: Participantes y compañeros del pair programming
+
+* **`Sebastian Vazquez`**   [![linkedin](https://img.shields.io/badge/linkedin-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/sebastian-vazquez-67353722b/)
+
+* **`Ronnie Escobar Ccanto`**   [![linkedin](https://img.shields.io/badge/linkedin-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ronnie-escobar-ccanto7461/)
+
+* **`Aldo Federico Mamani`**   [![linkedin](https://img.shields.io/badge/linkedin-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/afederico-mamani-mgg/)
+
+* **`Maria Eva Bichi`**   [![linkedin](https://img.shields.io/badge/linkedin-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/mar%C3%ADa-eva-bichi-264443203/)
+
+<br>
+ 
